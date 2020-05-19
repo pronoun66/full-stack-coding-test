@@ -1,14 +1,13 @@
 import { s3 } from '../config'
 import { Call, Team, User } from '../types'
 
-const DATA_BUCKET = 'coviu-challenges'
 const CALLS_OBJECT_KEY = 'data/backend/calls.json'
 const TEAMS_OBJECT_KEY = 'data/backend/teams.json'
 const USERS_OBJECT_KEY = 'data/backend/users.json'
 
 export const getCalls = async (): Promise<Call[]> => {
   const params = {
-    Bucket: DATA_BUCKET,
+    Bucket: process.env.AWS_S3_BUCKET,
     Key: CALLS_OBJECT_KEY
   }
 
@@ -28,7 +27,7 @@ export const getCalls = async (): Promise<Call[]> => {
 
 export const getTeams = async (): Promise<Team[]> => {
   const params = {
-    Bucket: DATA_BUCKET,
+    Bucket: process.env.AWS_S3_BUCKET,
     Key: TEAMS_OBJECT_KEY
   }
 
@@ -49,7 +48,7 @@ export const getTeams = async (): Promise<Team[]> => {
 
 export const getUsers = async (): Promise<User[]> => {
   const params = {
-    Bucket: DATA_BUCKET,
+    Bucket: process.env.AWS_S3_BUCKET,
     Key: USERS_OBJECT_KEY
   }
 

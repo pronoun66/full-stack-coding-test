@@ -1,7 +1,7 @@
 import * as data from '../../data'
 import { Call, User } from '../../types'
 import { get, getGroupByCall, initialCallOptions } from './index'
-import { ConditionTimeUnit, ConditionType, GroupType, SortOrder, SortType } from '../../const'
+import { FilterTimeUnit, FilterType, GroupType, SortOrder, SortType } from '../../const'
 
 
 describe('getGroupByCall', () => {
@@ -83,16 +83,16 @@ describe('getGroupByCall', () => {
       expect(getUsersSpy).toBeCalled()
     })
 
-    it('should return users with condition', async () => {
+    it('should return users with filter', async () => {
       const getCallsSpy = jest.spyOn(data, 'getCalls').mockResolvedValue(calls)
       const getUsersSpy = jest.spyOn(data, 'getUsers').mockResolvedValue(users)
       const expectedUser = users[0]
 
       const result = await getGroupByCall({
         ...initialCallOptions,
-        condition: {
-          type: ConditionType.DURATION,
-          unit: ConditionTimeUnit.MINUTE,
+        filter: {
+          type: FilterType.DURATION,
+          unit: FilterTimeUnit.MINUTE,
           amount: 1
         }
       })
@@ -122,16 +122,16 @@ describe('getGroupByCall', () => {
       }
     ]
 
-    it('should return users with default limit with condition', async () => {
+    it('should return users with default limit with filter', async () => {
       const getCallsSpy = jest.spyOn(data, 'getCalls').mockResolvedValue(calls)
       const getUsersSpy = jest.spyOn(data, 'getUsers').mockResolvedValue(users)
       const expectedUser = users[0]
 
       const result = await getGroupByCall({
         ...initialCallOptions,
-        condition: {
-          type: ConditionType.DURATION,
-          unit: ConditionTimeUnit.MINUTE,
+        filter: {
+          type: FilterType.DURATION,
+          unit: FilterTimeUnit.MINUTE,
           amount: 2
         },
         sort: {
@@ -145,14 +145,14 @@ describe('getGroupByCall', () => {
       expect(getUsersSpy).toBeCalled()
     })
 
-    it('should return 2 users with limit 2 with condition', async () => {
+    it('should return 2 users with limit 2 with filter', async () => {
       const getCallsSpy = jest.spyOn(data, 'getCalls').mockResolvedValue(calls)
       const getUsersSpy = jest.spyOn(data, 'getUsers').mockResolvedValue(users)
 
       const result = await getGroupByCall({
-        condition: {
-          type: ConditionType.DURATION,
-          unit: ConditionTimeUnit.MINUTE,
+        filter: {
+          type: FilterType.DURATION,
+          unit: FilterTimeUnit.MINUTE,
           amount: 2
         },
         sort: {

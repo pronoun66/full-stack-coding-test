@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon",
     "test": "jest --forceExit \"/src/.*.test.ts\"",
-    "unittest": "jest --forceExit \"/src/.*.test.ts\"",
-    "inttest": "jest --forceExit \"/src/.*.test.int.ts\""
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +31,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
-    "moment": "^2.25.3",
-    "qs": "^6.9.4"
+    "moment": "^2.25.3"
   }
 }
