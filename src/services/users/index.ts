@@ -1,6 +1,6 @@
 import { getCalls, getUsers } from '../../data'
 import { Call } from '../../types'
-import { ConditionTimeUnit, ConditionType, SortOrder, SortType, GroupType, timeUnitToMs } from '../../const'
+import { FilterTimeUnit, FilterType, SortOrder, SortType, GroupType, timeUnitToMs } from '../../const'
 import { IllegalArgumentError } from '../../errors/IllegalArgumentError'
 import _ from 'lodash'
 
@@ -8,8 +8,8 @@ export const initialCallOptions = {
   group: {
     type: GroupType.CALL
   },
-  condition: {
-    type: ConditionType.NONE,
+  filter: {
+    type: FilterType.NONE,
   },
   sort: {
     type: SortType.COUNT,
@@ -29,35 +29,36 @@ export const get = async (options: Options) => {
   }
 }
 
+// TODO Function can be separated by filter and sorting
 export const getGroupByCall = async (
   options: Options) => {
-  const {condition, sort, limit} = options
+  const {filter, sort, limit} = options
 
   const [calls, users] = await Promise.all([
     getCalls(),
     getUsers(),
   ])
 
-  let conditionCriteria = 0
-  if (condition.type === ConditionType.DURATION) {
-    const {amount = 2, unit = ConditionTimeUnit.MINUTE} = condition
-    conditionCriteria = amount * timeUnitToMs(unit)
+  let filterCriteria = 0
+  if (filter.type === FilterType.DURATION) {
+    const {amount = 2, unit = FilterTimeUnit.MINUTE} = filter
+    filterCriteria = amount * timeUnitToMs(unit)
 
   }
 
   // key is userId, value is {
-  //    count: number of calls which meet the condition
+  //    count: number of calls which meet the filter
   //    total: number of calls
   // }
   const userCounterMap = calls.reduce((acc: any, call: Call) => {
-    const doesMeetCondition = condition.type === ConditionType.NONE
+    const doesMeetCriteria = filter.type === FilterType.NONE
       ? true
-      : call.duration < conditionCriteria // TODO condition operator
+      : call.duration < filterCriteria // TODO filter operator
 
     call.participants.forEach(({userId}) => {
       const {count, total} = acc[userId] || {count: 0, total: 0}
       acc[userId] = {
-        count: count + (doesMeetCondition ? 1 : 0),
+        count: count + (doesMeetCriteria ? 1 : 0),
         total: total + 1
       }
     })
@@ -91,9 +92,9 @@ interface Options {
   group?: {
     type: GroupType
   }
-  condition?: {
-    type: ConditionType
-    unit?: ConditionTimeUnit,
+  filter?: {
+    type: FilterType
+    unit?: FilterTimeUnit,
     amount?: number
   }
   sort?: {

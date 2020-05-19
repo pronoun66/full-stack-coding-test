@@ -46,20 +46,20 @@ $ npm start
 ```
 
 # How to use
-`/users` support query for condition, sort and limit which following rules like  
+`/users` support query for filter, sort and limit which following rules like  
 
-Condition
-- condition[type]:
-    - duration: condition by call's duration, companion with condition[amount] & condition[unit]
-- condition[unit]:
+Filter
+- filter[type]:
+    - duration: filter by call's duration, companion with filter[amount] & filter[unit]
+- filter[unit]:
     - minute (default)
     - hour
-- condition[amount]: amount based on unit, default 1
-- condition[operator]: (working in progress) 
+- filter[amount]: amount based on unit, default 1
+- filter[operator]: (working in progress) 
 
 Sort
 - sort[type]:
-    - count (default): count of occurrence (could be conditional)
+    - count (default): count of occurrence (could be conditional by filter)
     - likelihood: ratio to occurrence / total
 - sort[order]:
     - desc (default): descending order 
@@ -69,15 +69,14 @@ Limit
 - limit: number of response result
 
 ### Example
-Get 10 users who had most of less than 1 min call  
-/users?condition[type]=duration&condition[unit]=minute&condition[amount]=&sort[type]=count
-
+Get 3 users who had most of less than 1 min call
+/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3
 
 
 ## Task1
 Which user(s) had the most calls?
 
-solution: query users by default query params
+Solution: query users by default query params
 ```shell script
 localhost:8080/users
 ```
@@ -85,7 +84,7 @@ localhost:8080/users
 ## Task2
 Which team conducted the least calls in March?
 
-solution: 
+solution: query users by default query params
 ```shell script
 localhost:8080/teams
 ```
@@ -93,9 +92,9 @@ localhost:8080/teams
 ## Task3
 If a call duration under 2 minutes is an indicator of a problem with a call, which user is the most likely to have issues with their connection?
 
-solution: query users by condition and sort
+solution: query users by filters and sort
 ```shell script
-localhost:8080/users?condition[type]=duration&condition[unit]=minute&condition[amount]=2&sort[type]=likelihood
+localhost:8080/users?filter[type]=duration&filter[unit]=minute&filter[amount]=2&sort[type]=likelihood
 ```
 
 # How to test
