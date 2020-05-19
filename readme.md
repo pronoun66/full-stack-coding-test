@@ -37,6 +37,7 @@ Refill blank values for environment variables in `.env`
 AWS_ACCESS_KEY_ID=
 AWS_ACCESS_KEY_SECRET=
 AWS_REGION=ap-southeast-2
+AWS_S3_BUCKET=
 ```
 
 # How to Run
