@@ -49,12 +49,12 @@ $ npm start
 main url `localhost:8080`
 
 # How to use
-`/users` support query for filter, sort and limit which following rules like
+`/users` support url query for filters, sort and limit with the following rules
 
 Filter
 - `filter[type]`:
-    - `duration` filter by call's duration, companion with filter[amount] & filter[unit]
-- `filter[unit]`:
+    - `duration` filter by call's duration, which companies with filter[amount] & filter[unit]
+- `filter[unit]` time unit with duration filter type
     - `second`
     - `minute` (default)
     - `hour`
@@ -63,21 +63,21 @@ Filter
 
 Sort
 - `sort[type]`:
-    - `count` (default): count of occurrence (could be conditional by filter)
-    - `likelihood` ratio to occurrence / total
+    - `count` (default): count of occurrence (could be conditional by filters)
+    - `likelihood` ratio to occurrence / total (could be conditional by filters)
 - `sort[order]`:
     - `desc` (default): descending order 
     - `asc` ascending order 
 
 Limit
-- `limit` number of response result
+- `limit` number of response result, default 1
 
 Group
 - `group[type]`
     - `call` (default): group by call
 
 ### Example
-Get 3 users who had most of less than 1 min call
+Get 3 users who had most of less than 1 min calls
   
 `/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3`
   
