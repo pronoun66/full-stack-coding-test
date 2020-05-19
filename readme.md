@@ -46,19 +46,26 @@ $ npm start
 ```
 
 
-##task1
-query users by default query params
+## task1
+Which user(s) had the most calls?
+
+solution: query users by default query params
 ```shell script
 localhost:8080/users
 ```
 
-##task2
+## task2
+Which team conducted the least calls in March?
+
+solution: 
 ```shell script
 localhost:8080/teams
 ```
 
-##task3
-query users by condition and sort
+## task3
+If a call duration under 2 minutes is an indicator of a problem with a call, which user is the most likely to have issues with their connection?
+
+solution: query users by condition and sort
 ```shell script
 localhost:8080/users?condition[type]=duration&condition[unit]=minute&condition[amount]=2&sort[type]=likelihood
 ```
