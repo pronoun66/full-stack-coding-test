@@ -40,7 +40,7 @@ AWS_REGION=ap-southeast-2
 AWS_S3_BUCKET=
 ```
 
-# How to Run
+# How to run
 Start express server
 ```shell script
 $ npm start
@@ -107,6 +107,8 @@ Response
 ```
 
 ###### */teams not supported yet
+
+# Tasks
 
 ## Task1
 Which user(s) had the most calls?
