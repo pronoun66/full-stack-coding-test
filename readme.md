@@ -36,7 +36,7 @@ Refill blank values for environment variables in `.env`
 ```shell script
 AWS_ACCESS_KEY_ID=
 AWS_ACCESS_KEY_SECRET=
-AWS_REGION=
+AWS_REGION=ap-southeast-2
 ```
 
 # How to Run
@@ -46,7 +46,7 @@ $ npm start
 ```
 
 # How to use
-`/users` support query for filter, sort and limit which following rules like  
+`/users` support query for filter, sort and limit which following rules like
 
 Filter
 - `filter[type]`:
@@ -67,7 +67,11 @@ Sort
     - `asc` ascending order 
 
 Limit
-- `limit`: number of response result
+- `limit` number of response result
+
+Group
+- `group[type]`
+    - `call` (default): group by call
 
 ### Example
 Get 3 users who had most of less than 1 min call

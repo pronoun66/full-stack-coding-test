@@ -1,8 +1,8 @@
+import _ from 'lodash'
 import { getCalls, getUsers } from '../../data'
 import { Call } from '../../types'
 import { FilterTimeUnit, FilterType, SortOrder, SortType, GroupType, timeUnitToMs } from '../../const'
 import { IllegalArgumentError } from '../../errors/IllegalArgumentError'
-import _ from 'lodash'
 
 export const initialCallOptions = {
   group: {
@@ -63,7 +63,7 @@ export const getGroupByCall = async (
       }
     })
     return acc
-  }, {}) as { [key: string]: { count: number, total: number } }
+  }, {}) as { [key: string]: { count: number; total: number } }
 
   return Object.entries(userCounterMap)
     .sort(([, counterA], [, counterB]) => {
@@ -90,16 +90,16 @@ export const getGroupByCall = async (
 
 interface Options {
   group?: {
-    type: GroupType
-  }
+    type: GroupType;
+  };
   filter?: {
-    type: FilterType
-    unit?: FilterTimeUnit,
-    amount?: number
-  }
+    type: FilterType;
+    unit?: FilterTimeUnit;
+    amount?: number;
+  };
   sort?: {
-    type: SortType
-    order: SortOrder,
-  },
-  limit?: number
+    type: SortType;
+    order: SortOrder;
+  };
+  limit?: number;
 }
