@@ -45,8 +45,36 @@ Start express server
 $ npm start
 ```
 
+# How to use
+`/users` support query for condition, sort and limit which following rules like  
 
-## task1
+Condition
+- condition[type]:
+    - duration: condition by call's duration, companion with condition[amount] & condition[unit]
+- condition[unit]:
+    - minute (default)
+    - hour
+- condition[amount]: amount based on unit, default 1
+- condition[operator]: (working in progress) 
+
+Sort
+- sort[type]:
+    - count (default): count of occurrence (could be conditional)
+    - likelihood: ratio to occurrence / total
+- sort[order]:
+    - desc (default): descending order 
+    - asc : ascending order 
+
+Limit
+- limit: number of response result
+
+### Example
+Get 10 users who had most of less than 1 min call  
+/users?condition[type]=duration&condition[unit]=minute&condition[amount]=&sort[type]=count
+
+
+
+## Task1
 Which user(s) had the most calls?
 
 solution: query users by default query params
@@ -54,7 +82,7 @@ solution: query users by default query params
 localhost:8080/users
 ```
 
-## task2
+## Task2
 Which team conducted the least calls in March?
 
 solution: 
@@ -62,7 +90,7 @@ solution:
 localhost:8080/teams
 ```
 
-## task3
+## Task3
 If a call duration under 2 minutes is an indicator of a problem with a call, which user is the most likely to have issues with their connection?
 
 solution: query users by condition and sort
