@@ -50,29 +50,32 @@ $ npm start
 
 Filter
 - `filter[type]`:
-    - `duration`: filter by call's duration, companion with filter[amount] & filter[unit]
+    - `duration` filter by call's duration, companion with filter[amount] & filter[unit]
 - `filter[unit]`:
     - `second`
     - `minute` (default)
     - `hour`
-- `filter[amount]`: amount based on unit, default 1
+- `filter[amount]` amount based on unit, default 1
 - `filter[operator]`: (working in progress) 
 
 Sort
 - `sort[type]`:
     - `count` (default): count of occurrence (could be conditional by filter)
-    - `likelihood`: ratio to occurrence / total
+    - `likelihood` ratio to occurrence / total
 - `sort[order]`:
     - `desc` (default): descending order 
-    - `asc` : ascending order 
+    - `asc` ascending order 
 
 Limit
 - `limit`: number of response result
 
 ### Example
 Get 3 users who had most of less than 1 min call
-`/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3`
+  
+`localhost:8080/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3`
+  
 Response
+  
 ```json
 [
     {
@@ -109,18 +112,14 @@ equivalent to
 ## Task2
 Which team conducted the least calls in March?
 
-solution: query users by default query params
-```shell script
-localhost:8080/teams
-```
+solution: query users by default query params  
+`localhost:8080/teams`
 
 ## Task3
 If a call duration under 2 minutes is an indicator of a problem with a call, which user is the most likely to have issues with their connection?
 
-solution: query users by filters and sort
-```shell script
-localhost:8080/users?filter[type]=duration&filter[unit]=minute&filter[amount]=2&sort[type]=likelihood
-```
+solution: query users by filters and sort  
+`localhost:8080/users?filter[type]=duration&filter[unit]=minute&filter[amount]=2&sort[type]=likelihood`
 
 # How to test
 ```shell script
