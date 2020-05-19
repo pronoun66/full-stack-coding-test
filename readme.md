@@ -49,37 +49,62 @@ $ npm start
 `/users` support query for filter, sort and limit which following rules like  
 
 Filter
-- filter[type]:
-    - duration: filter by call's duration, companion with filter[amount] & filter[unit]
-- filter[unit]:
-    - minute (default)
-    - hour
-- filter[amount]: amount based on unit, default 1
-- filter[operator]: (working in progress) 
+- `filter[type]`:
+    - `duration`: filter by call's duration, companion with filter[amount] & filter[unit]
+- `filter[unit]`:
+    - `second`
+    - `minute` (default)
+    - `hour`
+- `filter[amount]`: amount based on unit, default 1
+- `filter[operator]`: (working in progress) 
 
 Sort
-- sort[type]:
-    - count (default): count of occurrence (could be conditional by filter)
-    - likelihood: ratio to occurrence / total
-- sort[order]:
-    - desc (default): descending order 
-    - asc : ascending order 
+- `sort[type]`:
+    - `count` (default): count of occurrence (could be conditional by filter)
+    - `likelihood`: ratio to occurrence / total
+- `sort[order]`:
+    - `desc` (default): descending order 
+    - `asc` : ascending order 
 
 Limit
-- limit: number of response result
+- `limit`: number of response result
 
 ### Example
 Get 3 users who had most of less than 1 min call
-/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3
+`/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3`
+Response
+```json
+[
+    {
+        "id": 80,
+        "firstName": "firstName",
+        "lastName": "lastName",
+        "email": "xxx@gmail.com"
+    },
+    {
+        "id": 97,
+        "firstName": "firstName",
+        "lastName": "lastName",
+        "email": "xxx@gmail.com"
+    },
+    {
+        "id": 78,
+        "firstName": "firstName",
+        "lastName": "lastName",
+        "email": "xxx@gmail.com"
+    }
+]
+```
 
+###### */teams not supported yet
 
 ## Task1
 Which user(s) had the most calls?
 
-Solution: query users by default query params
-```shell script
-localhost:8080/users
-```
+Solution: query users by default query params  
+`localhost:8080/users`  
+equivalent to  
+`localhost:8080/users?sort[type]=count&sort[order]=desc&limit=1`
 
 ## Task2
 Which team conducted the least calls in March?
@@ -111,3 +136,7 @@ $ npm test
 - [x] [Eslint](https://www.npmjs.com/package/eslint)
 
 
+## TODO
+- more integration test
+- filter operator
+- `/teams` supports filter and sorting
