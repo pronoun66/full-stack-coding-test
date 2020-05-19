@@ -45,6 +45,8 @@ Start express server
 $ npm start
 ```
 
+main url `localhost:8080`
+
 # How to use
 `/users` support query for filter, sort and limit which following rules like
 
@@ -76,7 +78,7 @@ Group
 ### Example
 Get 3 users who had most of less than 1 min call
   
-`localhost:8080/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3`
+`/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3`
   
 Response
   
@@ -109,21 +111,21 @@ Response
 Which user(s) had the most calls?
 
 Solution: query users by default query params  
-`localhost:8080/users`  
+`/users`  
 equivalent to  
-`localhost:8080/users?sort[type]=count&sort[order]=desc&limit=1`
+`/users?sort[type]=count&sort[order]=desc&limit=1`
 
 ## Task2
 Which team conducted the least calls in March?
 
 solution: query users by default query params  
-`localhost:8080/teams`
+`/teams`
 
 ## Task3
 If a call duration under 2 minutes is an indicator of a problem with a call, which user is the most likely to have issues with their connection?
 
 solution: query users by filters and sort  
-`localhost:8080/users?filter[type]=duration&filter[unit]=minute&filter[amount]=2&sort[type]=likelihood`
+`/users?filter[type]=duration&filter[unit]=minute&filter[amount]=2&sort[type]=likelihood`
 
 # How to test
 ```shell script
