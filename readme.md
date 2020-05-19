@@ -4,7 +4,7 @@ Task Details:
 
 We need to run some reports on data for calls run on our system since the start of the year.
 
-This data is contained in three files hosted in a private S3 bucket called `coviu-challenges`, located in the `ap-southeast-2` region. These three files are:
+This data is contained in three files hosted in a S3 bucket. These three files are:
 
 - data/backend/calls.json
 - data/backend/teams.json
