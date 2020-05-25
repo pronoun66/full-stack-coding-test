@@ -11,21 +11,21 @@ describe('Teams', () => {
   describe('Get', () => {
     const calls: Call[] = [
       {
-        id: 3,
+        id: '3',
         teamId: 3,
         participants: [{userId: 1}],
         startedAt: '2019-02-28T07:48:44-10:00',
         duration: 1568644
       },
       {
-        id: 2,
+        id: '2',
         teamId: 2,
         participants: [{userId: 1}],
         startedAt: '2019-03-26T07:48:44-10:00',
         duration: 1568644
       },
       {
-        id: 1,
+        id: '1',
         teamId: 1,
         participants: [{userId: 1}, {userId: 2}],
         startedAt: '2019-03-27T09:26:50-10:00',

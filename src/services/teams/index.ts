@@ -9,7 +9,7 @@ export const get = async ({limit = 1, callInMonth = 2} = {}) => {
     getTeams(),
   ])
 
-  const sortedMarchCalls = calls.filter((call: Call) => {
+  const monthSortedCalls = calls.filter((call: Call) => {
     const time = moment(call.startedAt)
     return time.month() === callInMonth
   })
@@ -19,7 +19,7 @@ export const get = async ({limit = 1, callInMonth = 2} = {}) => {
       return timeA.isBefore(timeB) ? 1 : -1
     })
 
-  return sortedMarchCalls
+  return monthSortedCalls
     .slice(0, limit)
     .map((call: Call) => teams.find(({id}) => id === call.teamId))
 }

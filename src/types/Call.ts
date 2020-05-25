@@ -1,5 +1,5 @@
 export interface Call {
-  id: number
+  id: string
   teamId: number
   startedAt: string,
   duration: number,
