@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { get } from '../services/users'
+import { get } from '../services/teams'
 import { IllegalArgumentError } from '../errors/IllegalArgumentError'
 
 

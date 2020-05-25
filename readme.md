@@ -73,9 +73,11 @@ Filter*
     - varies by `filter[filed]`
 
 Sort*
+
 - `sort[type]`:
     - `count` (default): count of occurrence (could be conditional by filters)
     - `likelihood` ratio of occurrence / total (conditional by filters)
+    
 - `sort[order]`:
     - `desc` (default): descending order 
     - `asc` ascending order 
@@ -126,7 +128,7 @@ Response
 ## Task1
 Which user(s) had the most calls?
 
-Solution: query users by default query params
+Solution: query users by filters and sort
 `/users?sort[type]=count&sort[order]=desc&limit=1`
 
 ## Task2
