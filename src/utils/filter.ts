@@ -51,7 +51,7 @@ const timeUnitToMs = (unit: FilterTimeUnit) => {
     case FilterTimeUnit.HOUR:
       return 3600000
     default:
-      throw new Error('Invalid time unit')
+      throw new IllegalArgumentError('Invalid time unit')
   }
 }
 
