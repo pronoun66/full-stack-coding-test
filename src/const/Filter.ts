@@ -1,31 +1,18 @@
-export enum FilterType {
+export enum FilterField {
   DURATION = 'duration',
-  NONE = 'none'
+  STARTED_AT = 'startedAt'
 }
 
 export enum FilterTimeUnit {
-  SECOND = 'second',
-  MINUTE = 'minute',
-  HOUR = 'hour'
+  SECOND = 's',
+  MINUTE = 'm',
+  HOUR = 'h'
 }
 
 export enum FilterOperator {
   GTE = 'gte',
   GT = 'gt',
-  EQUAL = 'equal',
+  EQ = 'eq',
   LTE = 'lte',
   LT = 'lt'
-}
-
-export const timeUnitToMs = (unit: FilterTimeUnit) => {
-  switch (unit) {
-    case FilterTimeUnit.SECOND:
-      return 1000
-    case FilterTimeUnit.MINUTE:
-      return 60000
-    case FilterTimeUnit.HOUR:
-      return 3600000
-    default:
-      return 60000
-  }
 }

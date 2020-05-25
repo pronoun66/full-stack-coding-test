@@ -1,21 +1,19 @@
 import _ from 'lodash'
 import { getCalls, getUsers } from '../../data'
-import { Call } from '../../types'
-import { FilterTimeUnit, FilterType, SortOrder, SortType, GroupType, timeUnitToMs } from '../../const'
+import { Call, Filter } from '../../types'
+import { FilterField, FilterOperator, FilterTimeUnit, GroupType, SortOrder, SortType } from '../../const'
+import { getFilterComparator } from '../../utils/filter'
 import { IllegalArgumentError } from '../../errors/IllegalArgumentError'
 
 export const initialCallOptions = {
   group: {
     type: GroupType.CALL
   },
-  filter: {
-    type: FilterType.NONE,
-  },
   sort: {
     type: SortType.COUNT,
     order: SortOrder.DESC,
   },
-  limit: 1
+  limit: 10
 }
 
 export const get = async (options: Options) => {
@@ -30,8 +28,7 @@ export const get = async (options: Options) => {
 }
 
 // TODO Function can be separated by filter and sorting
-export const getGroupByCall = async (
-  options: Options) => {
+export const getGroupByCall = async (options: Options) => {
   const {filter, sort, limit} = options
 
   const [calls, users] = await Promise.all([
@@ -39,26 +36,19 @@ export const getGroupByCall = async (
     getUsers(),
   ])
 
-  let filterCriteria = 0
-  if (filter.type === FilterType.DURATION) {
-    const {amount = 2, unit = FilterTimeUnit.MINUTE} = filter
-    filterCriteria = amount * timeUnitToMs(unit)
-
-  }
+  const filterComparator = getFilterComparator(filter) as any
 
   // key is userId, value is {
   //    count: number of calls which meet the filter
   //    total: number of calls
   // }
   const userCounterMap = calls.reduce((acc: any, call: Call) => {
-    const doesMeetCriteria = filter.type === FilterType.NONE
-      ? true
-      : call.duration < filterCriteria // TODO filter operator
+    const isMatch = filterComparator(call)
 
     call.participants.forEach(({userId}) => {
       const {count, total} = acc[userId] || {count: 0, total: 0}
       acc[userId] = {
-        count: count + (doesMeetCriteria ? 1 : 0),
+        count: count + (isMatch ? 1 : 0),
         total: total + 1
       }
     })
@@ -84,7 +74,10 @@ export const getGroupByCall = async (
       return valueA < valueB ? -1 : 1
     })
     .slice(0, limit)
-    .map(([key,]) => users.find(({id}) => id.toString() === key))
+    .map(([key,]) => {
+      const user = users.find(({id}) => id.toString() === key)
+      return user ? user : {id: parseInt(key)}
+    })
 }
 
 
@@ -92,11 +85,7 @@ interface Options {
   group?: {
     type: GroupType;
   };
-  filter?: {
-    type: FilterType;
-    unit?: FilterTimeUnit;
-    amount?: number;
-  };
+  filter?: Filter;
   sort?: {
     type: SortType;
     order: SortOrder;

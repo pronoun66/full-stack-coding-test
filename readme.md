@@ -51,54 +51,67 @@ main url `localhost:8080`
 # How to use
 `/users` support url query for filters, sort and limit with the following rules
 
-Filter
-- `filter[type]`:
-    - `duration` filter by call's duration, which companies with filter[amount] & filter[unit]
-- `filter[unit]` time unit with duration filter type
-    - `second`
-    - `minute` (default)
-    - `hour`
-- `filter[amount]` amount based on unit, default 1
-- `filter[operator]`: (working in progress) 
+Filter*
+- `filter[field]`
+    - `duration` filter by call's duration
+        - `filter[value]` supports format '{number}(h|m|s)', for example 
+            - `1h`: 1 hour
+            - `2m`: 2 minutes
+            - `30s`: 30 seconds
+    - `startedAt` filter by call's startedAt time
+        - `filter[value]` supports format 'YYYY-MM-DDTHH:mm:ss-{timeZone}', for example
+            - `2017-12-14T16:34:10-10:00`
+    
+- `filter[operator]`
+    - `gt` greater than
+    - `gte` greater than or equal to
+    - `eq` (default) equal to
+    - `lte` less than or equal to
+    - `lt` less than
+    
+- `filter[value]` 
+    - varies by `filter[filed]`
 
-Sort
+Sort*
 - `sort[type]`:
     - `count` (default): count of occurrence (could be conditional by filters)
-    - `likelihood` ratio to occurrence / total (could be conditional by filters)
+    - `likelihood` ratio of occurrence / total (conditional by filters)
 - `sort[order]`:
     - `desc` (default): descending order 
     - `asc` ascending order 
 
-Limit
-- `limit` number of response result, default 1
+Limit*
+- `limit` number of response result, default 10
 
-Group
+Group*
 - `group[type]`
     - `call` (default): group by call
 
 ### Example
 Get 3 users who had most of less than 1 min calls
-  
-`/users?filter[type]=duration&filter[unit]=minute&filter[amount]=1&sort[type]=count&limit=3`
+
+Request
+
+`/users?filter[field]=duration&filter[value]=30m&filter[operator]=gt&sort[type]=count&limit=3`
   
 Response
   
 ```json
 [
     {
-        "id": 80,
+        "id": 18,
         "firstName": "firstName",
         "lastName": "lastName",
         "email": "xxx@gmail.com"
     },
     {
-        "id": 97,
+        "id": 69,
         "firstName": "firstName",
         "lastName": "lastName",
         "email": "xxx@gmail.com"
     },
     {
-        "id": 78,
+        "id": 98,
         "firstName": "firstName",
         "lastName": "lastName",
         "email": "xxx@gmail.com"
@@ -108,14 +121,12 @@ Response
 
 ###### */teams not supported yet
 
-# Tasks
+# Task solution
 
 ## Task1
 Which user(s) had the most calls?
 
-Solution: query users by default query params  
-`/users`  
-equivalent to  
+Solution: query users by default query params
 `/users?sort[type]=count&sort[order]=desc&limit=1`
 
 ## Task2
@@ -128,7 +139,7 @@ solution: query users by default query params
 If a call duration under 2 minutes is an indicator of a problem with a call, which user is the most likely to have issues with their connection?
 
 solution: query users by filters and sort  
-`/users?filter[type]=duration&filter[unit]=minute&filter[amount]=2&sort[type]=likelihood`
+`/users?filter[field]=duration&filter[value]=2m&filter[operator]=lt&sort[type]=likelihood&limit=1`
 
 # How to test
 ```shell script
@@ -146,5 +157,4 @@ $ npm test
 
 ## TODO
 - more integration test
-- filter operator
 - `/teams` supports filter and sorting
